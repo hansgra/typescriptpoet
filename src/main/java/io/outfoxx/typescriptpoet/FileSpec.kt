@@ -16,6 +16,8 @@
 
 package io.outfoxx.typescriptpoet
 
+import io.outfoxx.typescriptpoet.Modifier.LET
+import io.outfoxx.typescriptpoet.Modifier.VAR
 import java.io.File
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -311,7 +313,7 @@ private constructor(
         Modifier.VAR
       )
       require(propertySpec.decorators.isEmpty()) { "decorators on file properties are not allowed" }
-      checkMemberModifiers(propertySpec.modifiers)
+      checkMemberModifiers(propertySpec.modifiers.filter { it !in setOf(Modifier.CONST, Modifier.LET, Modifier.VAR) }.toSet())
       members += propertySpec
     }
 
